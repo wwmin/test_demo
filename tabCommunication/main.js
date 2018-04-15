@@ -10,8 +10,11 @@ let setButton = getDom("setId");
 checkButton.addEventListener("click", e => {
     let value = document.getElementById("checkInputId").value;
     console.log(value);
+    let storageValue = localStorage.getItem("a");
+    getDom("checkInputId").value = storageValue;
 });
 setButton.addEventListener("click", e => {
     let value = getDom("setInputId").value;
     console.log(value);
+    localStorage.setItem("a", value);
 });

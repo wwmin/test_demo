@@ -14,8 +14,11 @@ checkButton.addEventListener("click", e => {
     "checkInputId"
   )).value;
   console.log(value);
+  let storageValue: string = localStorage.getItem("a");
+  (getDom("checkInputId") as HTMLInputElement).value = storageValue;
 });
 setButton.addEventListener("click", e => {
   let value: string = (getDom("setInputId") as HTMLInputElement).value;
   console.log(value);
+  localStorage.setItem("a", value);
 });
