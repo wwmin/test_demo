@@ -11,5 +11,6 @@
     "javascript"
   ],
   "author": "wwmin (wwei.min@163.com)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }
