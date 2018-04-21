@@ -1,7 +1,13 @@
 /**
  * 公共校验方法js
  * */
-
+function isType(type) {
+  return function(obj) {
+    return Object.prototype.toString.call(obj) === `[object ${type}]`;
+  };
+}
+const isArray = isType("Array");
+const isString = isType("string");
 //非空验证
 function checkNull(str) {
   return str != null && str !== "";
@@ -133,14 +139,15 @@ function checkKeyword(keywords, cell) {
           checkFlag = "false";
         }
       }
-      if ((checkFlag === "true") && (this.value !== "")) {
+      if (checkFlag === "true" && this.value !== "") {
         //如果不是非法字符，再校验字符的长度，因为要用div显示，所以放在验证非法字符后面
         if (bytes(this.value) > 512) {
           //判定输入的字符长度不能大于512，如果超过提示用户
           this.style.cssText = "border:2px solid #FFCC88;";
           this.style.width = inputWidth;
           document.getElementById("errorDiv").style.display = "block";
-          document.getElementById("errorDiv").innerHTML = "输入的内容过长，范围512位字母、数字或汉字（汉字算两位）";
+          document.getElementById("errorDiv").innerHTML =
+            "输入的内容过长，范围512位字母、数字或汉字（汉字算两位）";
           checkFlag = "false";
         }
       }
