@@ -41,6 +41,42 @@ let renders = function() {
   bindEvent();
 };
 
-renders();
-renders();
-renders();
+// renders();
+// renders();
+// renders();
+
+// 柯里化雏形
+let add = function(x) {
+  return function(y) {
+    return x + y;
+  };
+};
+
+// console.log(add(3)(4));
+
+// 通用柯里化函数
+function curry(fn) {
+  let slice = Array.prototype.slice; //将slice缓存起来
+  let args = slice.call(arguments, 1); //这里将arguments转成数组并保存
+  return function(n) {
+    //将新旧的参数拼接起来
+    let newArgs = args.concat(slice.call(arguments));
+    return fn.apply(null, newArgs); //返回执行的fn并传递最新的参数
+  };
+}
+
+
+
+// ES6版的柯里化函数
+function curryES6(fn) {
+  const g = (...allArgs) =>
+    allArgs.length >= fn.length
+      ? fn(...allArgs)
+      : (...args) => g(...allArgs, ...args);
+  return g;
+}
+
+const addd = curryES6((x, y) => {
+  console.log(x + y);
+});
+addd(1)(23);
