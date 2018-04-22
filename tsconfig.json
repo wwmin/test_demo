@@ -5,7 +5,9 @@
     "removeComments": false,
     "noImplicitAny": false,
     "sourceMap": false,
-    "allowJs": true
+    "allowJs": true,
+    "watch": true
   },
+  "include": ["./src/**/*", "./service/*", "./**/*"],
   "exclude": ["node_modules"]
 }
