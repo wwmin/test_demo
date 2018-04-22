@@ -18,3 +18,21 @@ setButton.addEventListener("click", e => {
     console.log(value);
     localStorage.setItem("a", value);
 });
+let data = "";
+let onconnect = function (e) {
+    let port = e.ports[0];
+    port.onmessage = function (e) {
+        if (e.data = 'get') {
+            port.postMssage(data);
+        }
+        else {
+            data = e.data;
+        }
+    };
+};
+if (typeof Worker === 'undefined') {
+    alert('当前浏览器不支持webwork');
+}
+else {
+    let worker = new SharedWorker('worker.js');
+}
