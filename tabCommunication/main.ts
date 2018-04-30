@@ -34,14 +34,26 @@ let onconnect = function (e) {
     }
   }
 }
+var throttle = function (action, delay) {
+  var last = 0;
+  return function () {
+    var curr = +new Date()
+    if (curr - last > delay) {
+      action.apply(this, arguments)
+      last = curr
+    }
+  }
+}
 
-function throttle(fn, wait) {
+function throttle1(fn, wait) {
   let _fn = fn,
     timer,
     flags = true;
   return function () {
     let args = arguments,
       self = this;
+    console.log(args);
+
     if (flags) {
       _fn.apply(self, args);
       flags = false;
@@ -60,5 +72,37 @@ function throttle(fn, wait) {
 
 window.onscroll = throttle(function () {
   console.log("滚动");
-
 }, 200);
+
+
+// 惰性函数
+let addEvent = function (ele, type, fn) {
+  if (window.addEventListener) {
+    addEvent = function (ele, type, fn) {
+      ele.addEventListener(type, fn, false);
+    }
+  } else if (window.attachEvent) {
+    addEvent = function (ele, type, fn) {
+      ele.attachEvent('on' + type, function () {
+        fn.call(ele);
+      });
+    }
+  }
+  addEvent(ele, type, fn);
+}
+
+let only = function (obj, keys) {
+  obj = obj || {};
+  if ('string' === typeof keys) keys = keys.split(/ +/);
+  return keys.reduce(function (ret, key) {
+    if (null == obj[key]) return ret;
+    ret[key] = obj[key];
+    return ret;
+  }, {});
+};
+let o = {
+  env: 'development',
+  proxy: false,
+  subdomainOffset: 2
+}
+var aaa = only(o, ['env', 'proxy','wwmin']);
