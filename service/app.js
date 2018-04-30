@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 require("../public/libs/test.js");
 var app = express();
+app.use(express.static('tabCommunication'));
 app.get("/", function (req, res) {
-    res.send("Hello world!");
+    // res.send("Hello world!");
+    res.sendfile('tabCommunication/index.html');
 });
 app.use(express.static("public"));
 var server = app.listen(3000, function () {

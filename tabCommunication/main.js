@@ -30,9 +30,25 @@ let onconnect = function (e) {
         }
     };
 };
-if (typeof Worker === 'undefined') {
-    alert('当前浏览器不支持webwork');
+function throttle(fn, wait) {
+    let _fn = fn, timer, flags = true;
+    return function () {
+        let args = arguments, self = this;
+        if (flags) {
+            _fn.apply(self, args);
+            flags = false;
+            return flags;
+        }
+        // 如果定时器还在,说明上一次还没执行完,不往下执行
+        if (timer)
+            return false;
+        timer = setTimeout(function () {
+            clearTimeout(timer); //清空上次的定时器
+            timer = null;
+            _fn.apply(self, args);
+        }, wait);
+    };
 }
-else {
-    let worker = new SharedWorker('worker.js');
-}
+window.onscroll = throttle(function () {
+    console.log("滚动");
+}, 200);
