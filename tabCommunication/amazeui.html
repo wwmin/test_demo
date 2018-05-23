@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazeui</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <script src="./jquery.js"></script>
+    <script src="amazeui.js"></script>
+</head>
+<body>
+<button type="button" id="btn" class="am-btn am-btn-primary js-modal-open" onclick="toggleModal()">打开 Modal</button>
+
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="your-modal">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">Modal 标题
+            <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+        </div>
+        <div class="am-modal-bd">
+            Modal 内容。
+        </div>
+    </div>
+</div>
+<script>
+  // var btnObj = document.getElementById("btn");
+  // setTimeout(() => {
+  //   btnObj.onclick = toggleModal;
+  // }, 2000)
+
+  $("#btn").trigger("click");
+
+  function toggleModal() {
+    $('#your-modal').modal('toggle');
+  }
+</script>
+</body>
+</html>
