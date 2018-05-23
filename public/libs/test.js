@@ -4,11 +4,16 @@
 var l1 = [2, 4, 3];
 var l2 = [5, 6, 4];
 var addTwoNumbers = function (l1, l2) {
-    let num1 = l1.reverse();
-    let num2 = l2.reverse();
-    let sum = +num1.join('') + +num2.join('');
-    return sum.toString().split('').reverse().map(p => +p);
+    if (l1.length > 0 && l2.length > 0) {
+        let num1 = l1.reverse();
+        let num2 = l2.reverse();
+        let sum = +num1.join('') + +num2.join('');
+        return sum.toString().split('').reverse().map(p => +p);
+    } else {
+        return [];
+    }
 };
+
 
 
 /**
@@ -44,20 +49,48 @@ var findMedianSortedArrays = function (nums1 = [], nums2 = []) {
     var numLength1 = nums1.length;
     var numLength2 = nums2.length;
     var isEven = (numLength1 + numLength2) % 2 === 0;
-    var allnum = nums1.concat(nums2).sort((a,b)=>a-b);
-    console.log(allnum);
+    var allnum = nums1.concat(nums2).sort((a, b) => a - b);
     if (isEven) {
         var middleNum = allnum.length / 2 - 1;
         return (allnum[middleNum] + allnum[middleNum + 1]) / 2
     } else {
-        return allnum[(allnum.length -1) / 2]
+        return allnum[(allnum.length - 1) / 2]
     }
-
 };
 
 /**
  * 第四题
  */
-var longestPalindrome = function(s) {
-    
+var longestPalindrome = function (s) {
+    if (s.length < 2) return s;
+
+    var ss = s.split('');
+    var currentMax = "";
+
+    for (var i = 0, l = ss.length; i < l - 1; i++) {
+        for (var j = i + 1; j <= l; j++) {
+            var sp = ss.slice(i, j).join('');
+            var ijl = j - i;
+            if (isPalind(sp) && ijl > currentMax.length) {
+                currentMax = sp;
+            }
+        }
+    }
+    return currentMax;
+
+    function isPalind(s) {
+        var len = s.length;
+        if (len === 1) return true;
+        if (s[0] !== s[s.length - 1]) return false;
+        var isEven = len % 2 === 0;
+        if (isEven) {
+            return s.slice(0, len / 2) === s.slice(len / 2).split('').reverse().join('');
+        } else {
+            return s.slice(0, (len - 1) / 2) === s.slice((len - 1) / 2 + 1).split('').reverse().join('');
+        }
+    }
 };
+
+// var palindrome = "babad";//"bb"
+var palindrome = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"; //"bb"
+console.log(longestPalindrome(palindrome));
