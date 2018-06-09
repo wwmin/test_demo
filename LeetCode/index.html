@@ -7,6 +7,9 @@
 <body>
 <h1>leetcode 84</h1>
 <script>
+  let print = function (a) {
+    document.writeln(JSON.stringify(a) + '<br>');
+  };
   /**
    * @param {number[][]} A
    * @return {number[][]}
@@ -99,6 +102,289 @@
     }
     return -1;
   };
+  /**
+   * @param {string} s
+   * @param {string} p
+   * @return {boolean}
+   */
+  var isMatch = function (s = "", p = "") {
+    if (s === p) return true;
+    if (p.length > a.length) return false;
+    var dot = p.indexOf('.');
+    var star = p.indexOf('*');
+    var sa = s.split('');
+    for (let i = 0, l = sa.length; i < l; i++) {
+    }
+  };
+  /**
+   * @param {number} dividend
+   * @param {number} divisor
+   * @return {number}
+   */
+  var divide = function (dividend, divisor) {
+  };
+  Math.seed = 5;
+  Math.seededRandom = function (max, min) {
+    max = max || 1;
+    min = min || 0;
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    var rnd = Math.seed / 233280.0;
+    return min + rnd * (max - min);
+  };
+  for (var i = 0; i < 10; i++) {
+    //console.log(Math.seededRandom());
+  }
+  var backspaceCompare = function (S, T) {
+    let sa = S.split('');
+    let ta = T.split('');
+    let ss = spliceArr(sa);
+    let tt = spliceArr(ta);
+    return ss === tt;
+  };
+
+  function spliceArr(arr = []) {
+    for (let i = 0, l = arr.length; i < l; i++) {
+      if (arr.length > i && arr[i] === "#") {
+        let firstCode = findFirstCode(arr, i);
+        if (firstCode === -1) {
+          arr[i] = null;
+        } else {
+          arr[firstCode] = null;
+          arr[i] = null;
+        }
+      }
+    }
+    let res = [];
+    arr.forEach(p => {
+      if (p !== null) res.push(p)
+    });
+    return res.join('');
+  }
+
+  function findFirstCode(arr = [], n) {
+    for (let i = n - 1; i >= 0; i--) {
+      if (arr[i] !== "#" && arr[i] !== null) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * @param {number[]} A
+   * @return {number}
+   */
+  var longestMountain = function (A) {
+    let longArrayLength = 0;
+    let currentLeftLength = 0;
+    for (let i = 1, l = A.length; i < l; i++) {
+      if (A[i] > A[i - 1]) {
+        currentLeftLength++;
+      } else if (A[i - 1] > A[i] && currentLeftLength > 0) {
+        for (let ii = i - 1, ll = l; ii < ll; ii++) {
+          currentLeftLength++;
+          if (A[ii] < A[ii + 1] || A[ii] === A[ii + 1] || ii === ll - 1) {
+            i = ii;
+            longArrayLength < currentLeftLength ? longArrayLength = currentLeftLength : '';
+            currentLeftLength = 0;
+            break;
+          }
+        }
+      } else {
+        currentLeftLength = 0;
+      }
+    }
+    return longArrayLength;
+  };
+  /**
+   * @param {number[]} hand
+   * @param {number} W
+   * @return {boolean}
+   */
+  var isNStraightHand = function (hand = [], W) {
+    if (hand.length % W !== 0) {
+      return false;
+    }
+    hand = hand.sort((a, b) => a - b);
+    for (let i = 0, l = Math.floor(hand.length / W); i < l; i++) {
+      var handArr = new Array(W);
+      for (let ii = 0, ll = W; ii < ll; ii++) {
+        var index = findNextIndex(hand, handArr[ii - 1]);
+        if (index === -1) return false;
+        handArr[ii] = hand[index];
+        hand.splice(index, 1, null);
+      }
+    }
+    return true;
+
+    function findNextIndex(hand, current) {
+      return hand.findIndex(x => {
+        if (current === undefined) return x != null;
+        return x != null && x === current + 1;
+      });
+    }
+  };
+
+  function Vertex() {
+    if (!(this instanceof Vertex))
+      return new Vertex();
+    this.color = this.WHITE; //初始为 白色
+    this.pi = null; //初始为 无前驱
+    this.d = this.INFINITY; //初始为 无穷大
+    this.edges = null; //由顶点发出的所有边
+    this.value = null; //节点的值 默认为空
+  }
+
+  Vertex.prototype = {
+    constructor: Vertex,
+    WHITE: 'white', //白色
+    GRAY: 'gray', //灰色
+    BLACK: 'black', //黑色
+    INFINITY: null //d 为 null 时表示无穷大
+  };
+
+  //数据结构 邻接链表-边
+  function Edge() {
+    if (!(this instanceof Edge))
+      return new Edge();
+    this.index = null; //边所依附的节点的位置
+    this.sibling = null;
+    this.w = null; //保存边的权值
+  }
+
+  //数据结构 图-G
+  function Graph() {
+    if (!(this instanceof Graph))
+      return new Graph();
+    this.graph = [];
+    this.refer = new Map(); //字典 用来映射标节点的识符和数组中的位置
+  }
+
+  Graph.prototype = {
+    constructor: Graph,
+    //这里加进来的已经具备了边的关系
+    addNode: function (node) {
+      this.graph.push(node);
+    },
+    getNode: function (index) {
+      return this.graph[index];
+    },
+    //创建图的 节点
+    initVertex: function (vertexs) {
+      //创建节点并初始化节点属性 value
+      for (let value of vertexs) {
+        let vertex = Vertex();
+        vertex.value = value;
+        this.graph.push(vertex);
+      }
+      //初始化 字典
+      for (let i in this.graph) {
+        this.refer.set(this.graph[i].value, i);
+      }
+    },
+    //建立图中 边 的关系
+    initEdge: (function () {
+      //创建链表，返回链表的第一个节点
+      function createLink(index, len, edges, refer) {
+        if (index >= len) return null;
+        let edgeNode = Edge();
+        edgeNode.index = refer.get(edges[index].id); //边连接的节点 用在数组中的位置表示 参照字典
+        edgeNode.w = edges[index].w; //边的权值
+        edgeNode.sibling = createLink(++index, len, edges, refer); //通过递归实现 回溯
+        return edgeNode;
+      }
+
+      return function (edges) {
+        for (let field in edges) {
+          let index = this.refer.get(field); //从字典表中找出节点在 graph 中的位置
+          let vertex = this.graph[index]; //获取节点
+          vertex.edges = createLink(0, edges[field].length, edges[field], this.refer);
+        }
+      }
+    }())
+  };
+
+  //广度优先搜索
+  function BFS(g, s) {
+    let queue = [];
+    s.color = s.GRAY;
+    s.d = 0;
+    queue.push(s);
+    while (queue.length > 0) {
+      let u = queue.shift();
+      if (u.edges == null) continue;
+      let sibling = u.edges;
+      while (sibling != null) {
+        let index = sibling.index;
+        let n = g.getNode(index);
+        if (n.color == n.WHITE) {
+          n.color = n.GRAY;
+          n.d = u.d + 1;
+          n.pi = u;
+          queue.push(n);
+        }
+        sibling = sibling.sibling;
+      }
+      u.color = u.BLACK;
+      console.log(u)
+    }
+  }
+
+  var vertexs = ['A', 'B', 'C', 'D', 'E', 'F'];
+  var edges = {
+    A: [{id: 'B', w: 1}, {id: 'D', w: 2}],
+    B: [{id: 'A', w: 3}, {id: 'E', w: 3}, {id: 'C', w: 7}],
+    C: [{id: 'B', w: 5}, {id: 'E', w: 3}, {id: 'F', w: 4}],
+    D: [{id: 'A', w: 2}],
+    E: [{id: 'B', w: 3}, {id: 'C', w: 7}, {id: 'F', w: 3}],
+    F: [{id: 'C', w: 6}, {id: 'E', w: 9}]
+  };
+  //构建图
+  var g = Graph();
+  //g.initVertex(vertexs);
+  //g.initEdge(edges);
+  //调用BFS
+  //BFS(g, g.graph[1]);
+  /**
+   * @param {number[][]} graph
+   * @return {number}
+   */
+  var shortestPathLength = function (graph) {
+    if (graph.length === 1) return 0;
+    let step = 1;
+    let q = [];
+    let qq = [];
+    for (let i in graph) {
+      q.push([+i, 1 << i]);
+    }
+    let vis = [...new Set(q)];
+    debugger;
+    while (q.length > 0) {
+      while (q.length > 0) {
+        let [i, s] = q.pop();
+        if (s === ((1 << graph.length) - 1)) {
+          return step - 1;
+        }
+        for (let t in graph[i]) {
+          t = t * 1;
+          if (vis.findIndex(x => {
+            return [t, s | (1 << t)].join() === x.join();
+          }) === -1) {
+            qq.push([t, s | (1 << t)]);
+            vis.push([t, s | (1 << t)]);
+          }
+        }
+      }
+      [q, qq] = [qq, q];
+      step += 1;
+    }
+    return  step - 1;
+  };
+  // var graph = [[1], [0, 2, 4], [1, 3, 4], [2], [1, 2]];
+  // var graph = [[1],[0,2,4],[1,3,4],[2],[1,2]];
+  // print(shortestPathLength(graph));
+
+
 </script>
 </body>
 </html>
