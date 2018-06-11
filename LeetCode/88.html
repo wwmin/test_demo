@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>leetcode</title>
+</head>
+<body>
+<h1>88</h1>
+<script>
+  /**
+   * @param {string} S
+   * @param {number[]} shifts
+   * @return {string}
+   */
+  let shiftingLetters1 = function (S, shifts) {
+    var acc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var accl = acc.length;
+    debugger;
+    for (let i = 0, l = shifts.length; i < l; i++) {
+      var cs = S.slice(0, i + 1);
+      var num = shifts[i];
+      var sca = cs.split('');
+      for (let ii = 0, ll = sca.length; ii < ll; ii++) {
+        var c = sca[ii];
+        var ci = acc.indexOf(c);
+        if (ci + num >= accl) {
+          sca[ii] = acc[(ci + num) % accl];
+        } else {
+          sca[ii] = acc[ci + num];
+        }
+      }
+      var ss = S.split('');
+      ss.splice(0, i + 1, ...sca);
+      S = ss.join('');
+    }
+    return S;
+  };
+  let shiftingLetters = function (S, shifts) {
+    var acc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var accl = acc.length;
+    S = S.split('');
+    var sn = shifts.slice(0).reduce((p, t) => p + t, 0);
+    for (let i = 0, l = shifts.length; i < l; i++) {
+      sn = i > 0 ? sn - shifts[i - 1] : sn;
+      var ci = acc.indexOf(S[i]);
+      var cn = sn + ci;
+      if (sn + ci >= accl) {
+        S[i] = acc[(cn) % accl];
+      } else {
+        S[i] = acc[cn];
+      }
+    }
+    return S.join('');
+  };
+  /**
+   * @param {number[]} seats
+   * @return {number}
+   */
+  var maxDistToClosest = function (seats) {
+    let maxNum = 0;
+    let maxSeats = [];
+    let sl = seats.length;
+    for (let i = 0, l = sl; i < l; i++) {
+      let currentSeats = [];
+      if (seats[i] === 0) {
+        currentSeats.push(i);
+        for (let ii = i + 1, ll = sl; ii < ll; ii++) {
+          i = ii;
+          if (seats[ii] === 0) {
+            currentSeats.push(ii);
+          } else {
+            break;
+          }
+        }
+        if (maxSeats.length < currentSeats.length || i === 0 || i === l - 1) {
+          let currentMaxNum = maxDistanceNum(currentSeats);
+          if (maxNum < currentMaxNum) {
+            maxNum = currentMaxNum;
+            maxSeats = currentSeats;
+          }
+        }
+      }
+    }
+    return maxNum;
+
+    function maxDistanceNum(maxSeats) {
+      let msl = maxSeats.length;
+      let firstSeatsNum = maxSeats[0];
+      let lastSeatsNum = maxSeats[maxSeats.length - 1];
+      if ((firstSeatsNum === 0 || lastSeatsNum === sl - 1) && msl !== 1) {
+        return lastSeatsNum - firstSeatsNum + 1;
+      }
+      return Math.floor(msl / 2) + msl % 2;
+    }
+  };
+  var seats = [0, 1, 1, 1, 0, 0, 1, 0, 0];
+  console.log(maxDistToClosest(seats));
+
+
+</script>
+</body>
+</html>

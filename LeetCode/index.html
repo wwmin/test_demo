@@ -378,13 +378,56 @@
       [q, qq] = [qq, q];
       step += 1;
     }
-    return  step - 1;
+    return step - 1;
   };
   // var graph = [[1], [0, 2, 4], [1, 3, 4], [2], [1, 2]];
   // var graph = [[1],[0,2,4],[1,3,4],[2],[1,2]];
   // print(shortestPathLength(graph));
+  /**
+   * @param {number[]} nums
+   * @return {number[]}
+   */
+  var productExceptSelf = function (nums) {
+    var numsSetArr = [...new Set(nums)];
+    if (numsSetArr.length === 1) {
+      return new Array(nums.length).fill(calcSum(nums, 0));
+    }
+    var sumIndexOfArr = [];
+    for (let i = 0, l = numsSetArr.length; i < l; i++) {
+      var si = {
+        num: numsSetArr[i],
+        sum: 0
+      };
+      si.sum = calcSum(nums, nums.indexOf(numsSetArr[i]));
+      sumIndexOfArr.push(si);
+    }
+    return nums.map(p => {
+      return sumIndexOfArr.find(x => x.num === p)['sum'];
+    });
 
+    function calcSum(nums, i) {
+      return nums.reduce((p, t, index) => {
+        if (index === i) return p;
+        return p * t;
+      }, 1)
+    }
+  };
+  /**
+   * @param {number[]} nums
+   * @return {string}
+   */
+  var largestNumber = function (nums) {
+    var numsList = nums.map(p => p.toString().split('').map(t => +t));
+    var largestLength = Math.max(...numsList.map(p => p.length));
 
+    for(let i=0,l=largestLength;i<l;i++){
+
+    }
+    console.log(numsList, largestLength);
+    return numsList;
+  };
+  var nums = [3, 30, 34, 5, 9];
+  print(largestNumber(nums));
 </script>
 </body>
 </html>
