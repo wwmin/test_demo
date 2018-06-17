@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>89</title>
+</head>
+<body>
+<script>
+  /**
+   * @param {number[]} A
+   * @return {number}
+   */
+  var peakIndexInMountainArray = function (A) {
+    debugger;
+    let peakIndex = 0;
+    let currentMountainIndex = 0;
+    for (let i = 1, l = A.length; i < l; i++) {
+      if (A[i] > A[i - 1]) {
+        currentMountainIndex++;
+      } else if (A[i - 1] > A[i] && currentMountainIndex > 0) {
+        peakIndex = i - 1;
+        return peakIndex;
+      } else {
+        currentMountainIndex = 0;
+      }
+    }
+    return peakIndex;
+  };
+  /**
+   * @param {number} target
+   * @param {number[]} position
+   * @param {number[]} speed
+   * @return {number}
+   */
+  var carFleet = function (target, position, speed) {
+    debugger;
+    let carArray = position.map((p, index) => {
+      return {
+        index: index,
+        position: p,
+        speed: speed[index],
+        hasEnd: false,
+        fleet: 1
+      }
+    });
+    for (let i = 0; i <= target; i++) {
+      checkPosition(carArray.filter(p => p['hasEnd'] === false));
+      carArray.forEach(p => {
+        if (p["position"] < target) {
+          p['position'] = p['speed'] + p['position'];
+        } else {
+          p['hasEnd'] = true;
+        }
+      });
+    }
+
+    function checkPosition(carArray) {
+      for (let i = 1, l = carArray.length; i < l; i++) {
+        var index = fundIndex(carArray, i, carArray[i - 1]['position'], "position");
+        if (index === -1) {
+          carArray[i]['fleet'] = carArray[i - 1]['fleet'] + 1;
+        } else {
+          // carArray[i] = carArray[i - 1];
+          carArray[i]['fleet'] = carArray[i - 1]['fleet'];
+          carArray[i]['hasEnd'] = carArray[i - 1]['hasEnd'];
+          carArray[i]['position'] = carArray[i - 1]['position'];
+          carArray[i]['speed'] = carArray[i - 1]['speed'];
+        }
+      }
+    }
+
+    function fundIndex(array, index, value, str) {
+      return array.findIndex((p, i) => {
+        if (i > index && array[str] === value) {
+          return i;
+        }
+      });
+    }
+
+    return carArray;
+  };
+  var target = 12, position = [10, 8, 0, 5, 3], speed = [2, 4, 1, 1, 3];
+  console.log(carFleet(target, position, speed));
+</script>
+</body>
+</html>

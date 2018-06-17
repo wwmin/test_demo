@@ -93,10 +93,24 @@
       return Math.floor(msl / 2) + msl % 2;
     }
   };
-  var seats = [0, 1, 1, 1, 0, 0, 1, 0, 0];
-  console.log(maxDistToClosest(seats));
+  /**
+   * @param {number[][]} rectangles
+   * @return {number}
+   */
+  var rectangleArea = function (rectangles) {
+    var rec = rectangles.map(p => [p[0], p[1], p[2] - 1, p[3] - 1]);
+    rec.map(p => {
+      let result = [];
+      let x1 = p[0];
+      let y1 = p[1];
+      let x2 = p[2];
+      let y2 = p[3];
 
-
+    });
+    return rec;
+  };
+  var rectangles = [[0, 0, 2, 2], [1, 0, 2, 3], [1, 0, 3, 1]];
+  console.log(rectangleArea(rectangles));
 </script>
 </body>
 </html>
