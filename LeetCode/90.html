@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  /**
+   * @param {string} A
+   * @param {string} B
+   * @return {boolean}
+   */
+  var buddyStrings = function (A = "", B = "") {
+    if (A.length !== B.length || A.length === 0 || B.length === 0) return false;
+    let a = A.split("");
+    let b = B.split("");
+    let diffAChar = [];
+    let diffBChar = [];
+    for (let i = 0, l = a.length; i < l; i++) {
+      if (a[i] !== b[i]) {
+        diffAChar.push(a[i]);
+        diffBChar.push(b[i]);
+      }
+    }
+    if (diffAChar.length === 0) {
+      let aa = Array.from(new Set(a));
+      if (aa.length < a.length) return true;
+    }
+    if (diffAChar.length !== 2) return false;
+    if (diffAChar[1] !== diffBChar[0] || diffAChar[0] !== diffBChar[1]) return false;
+    return true;
+  };
+  let A = "ab";
+  let B = "ab";
+  console.log(buddyStrings(A, B));
+</script>
+</body>
+</html>

@@ -10,5 +10,3 @@ let eat = after(3, function () {
     console.log("吃饱了");
 });
 eat();
-eat();
-eat();
