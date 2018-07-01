@@ -1,0 +1,3 @@
+const blog = {
+  name: "blog"
+};

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>serviceWork</title>
+    <script src="../libs/fetch.js"></script>
+    <script src="../libs/logger.js"></script>
+</head>
+<body>
+<div>
+    <img src="../static/image/000.png" alt="000.png" height="50" width="50">
+</div>
+<script>
+  logger("aaa", "wwwmin");
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('service-work.js').then(res => {
+      console.log("service worker 注册成功");
+    }).catch(e => {
+      console.log("service worker 注册失败");
+      logger("service worker 注册失败", e)
+    })
+  }
+</script>
+</body>
+</html>
