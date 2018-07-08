@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>92</title>
+</head>
+<body>
+<script>
+  /**
+   * @param {number[][]} A
+   * @return {number[][]}
+   */
+  var transpose = function (A) {
+    let result = [];
+    for (let i = 0, l = A[0].length; i < l; i++) {
+      let re = [];
+      for (let ii = 0, ll = A.length; ii < ll; ii++) {
+        re.push(A[ii][i]);
+      }
+      result.push(re);
+    }
+    return result;
+  };
+  // let A = [[1, 2, 3], [4, 5, 6]];
+  //    [[1,4],[2,5],[3,6]]
+  // console.log(transpose(A));
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {TreeNode}
+   */
+  var subtreeWithAllDeepest = function (root) {
+    let currentLength = 1;
+    let nodeIndex = 0;
+    for (let i = 0, l = root.length; i < l; i++) {
+      if (i > 0) currentLength = currentLength * 2;
+      let latArray=[];
+      let currentArray = [];
+
+    }
+  };
+  let root = [3, 5, 1, 6, 2, 0, 8, null, null, 7, 4];
+  console.log(subtreeWithAllDeepest(root));
+
+
+  function treeNode(){
+
+  }
+</script>
+</body>
+</html>
