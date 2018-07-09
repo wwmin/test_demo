@@ -31,7 +31,16 @@
     worker.onmessage=event=>{
      console.log(event.data);
    }
-    worker.postMessage({msg:"Hello world!",cmd:'start'});
+   worker.onerror=e=>{
+     console.error(e);
+   }
+   worker.onmessageerror=e=>{
+     console.error(e);
+   }
+   worker.postMessage({msg:"Hello world!",cmd:'start'});
+   setTimeout(() => {
+     worker.terminate();
+   }, 2000);
   </script>
 </body>
 </html>
