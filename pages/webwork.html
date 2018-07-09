@@ -27,7 +27,7 @@
     var blob=new Blob([document.querySelector("#worker").textContent]);
     var url=window.URL.createObjectURL(blob);
     
-    var worker=new Worker(url);
+    var worker=new Worker("./webwork.js");
     worker.onmessage=event=>{
      console.log(event.data);
    }
@@ -38,6 +38,7 @@
      console.error(e);
    }
    worker.postMessage({msg:"Hello world!",cmd:'start'});
+   worker.postMessage({msg:"你好",cmd:"start"});
    setTimeout(() => {
      worker.terminate();
    }, 2000);
