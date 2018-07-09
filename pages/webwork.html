@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  I am live work.
+  <script id="worker" type="app/work">
+   addEventListener("message",(e)=>{
+      let data=e.data;
+      switch(data.cmd){
+          case 'start':
+          postMessage("work started: " + data.msg);
+          break;
+          case 'end':
+          postMessage("worker stoped: "+data.msg);
+          break;
+          default:
+          postMessage("Unknown commond: "+data.msg);
+      }
+   },false);
+  </script>
+  <script>
+    var blob=new Blob([document.querySelector("#worker").textContent]);
+    var url=window.URL.createObjectURL(blob);
+    
+    var worker=new Worker(url);
+    worker.onmessage=event=>{
+     console.log(event.data);
+   }
+    worker.postMessage({msg:"Hello world!",cmd:'start'});
+  </script>
+</body>
+</html>
