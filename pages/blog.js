@@ -1,3 +1,0 @@
-const blog = {
-  name: "blog"
-};
