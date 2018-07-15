@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>93</title>
+  </head>
+
+  <body>
+    <script>
+      /**
+       * @param {number} N
+       * @return {number}
+       */
+      var binaryGap = function (N) {
+        let reg = /1{2,}/ig;
+        let a = N.toString(2).replace(/^0+|0+$/ig, '');
+        let m = Math.max(...a.split(/1+/ig).map(p => p.length));
+        // debugger;
+        if (m === 0) {
+          if (reg.test(a)) {
+            return 1;
+          }
+          return 0;
+        }
+        return m + 1;
+      };
+      let N = 6;
+      console.log(binaryGap(22));
+      console.log(binaryGap(5));
+      console.log(binaryGap(6)); //1
+      console.log(binaryGap(8));
+    </script>
+  </body>
+
+</html>
