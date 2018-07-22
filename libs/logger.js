@@ -6,5 +6,6 @@ function logger(...value) {
     let div = document.createElement("div");
     div.innerText = p;
     document.body.appendChild(div);
+    console.log(p);
   })
 }
