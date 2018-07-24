@@ -17,3 +17,5 @@ function debounce(func, wait, immediate) {
     }
   };
 }
+// 精确到指定位数的小数
+export const round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
