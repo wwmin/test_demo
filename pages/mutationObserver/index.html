@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mutation observer</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>
+        监视dom树变化
+      </h2>
+      <div id="deleteId">
+        看我的颜色
+      </div>
+    </div>
+    <script>
+      var targetNode = document.getElementById("app");
+      var config = {
+        attributes: true,
+        childList: true,
+        subtree: true
+      };
+      var callback = function (mutationsList) {
+        for (let mutation of mutationsList) {
+          if (mutation.type === 'childList') {
+            console.log('A child node has been added or removed.');
+          } else if (mutation.type == 'attributes') {
+            console.log('The ' + mutation.attributeName + ' attribute was modified.');
+          }else{
+            console.log('The ' + mutation.attributeName + ' subtree was modified.');
+          }
+        }
+      };
+      let observer = new MutationObserver(callback);
+      observer.observe(targetNode, config);
+      // later , you can stop observing
+      //observer.disconnect();
+      setTimeout(() => {
+        var dom = document.getElementById("deleteId");
+        dom.style.color = "red";
+      }, 2000);
+      setTimeout(() => {
+        var dom = document.getElementById("deleteId");
+        dom.style.fontSize = '20px';
+      }, 3000);
+      setTimeout(() => {
+        var dom = document.getElementById("deleteId");
+        document.getElementById('app').removeChild(dom);
+      }, 4000);
+    </script>
+  </body>
+</html>
