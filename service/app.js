@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-require("../libs/sort.js");
+import * as express from "express";
+import "../libs/sort.js";
 var app = express();
 app.use(express.static('tabCommunication'));
 app.get("/", function (req, res) {
