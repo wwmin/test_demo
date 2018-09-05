@@ -10,7 +10,18 @@
   </head>
 
   <body>
-    <script src="./94.js"></script>
+    <!-- <script src="./94.js"></script> -->
+    <script>
+      fetch('../static/data/json.json').then(res=>{
+        console.log(res);
+        return res.json();
+      }).then(res=>{
+        console.log(res);
+        
+      }).catch(e=>{
+        console.error(e)
+      })
+    </script>
   </body>
 
 </html>

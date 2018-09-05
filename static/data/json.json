@@ -1,0 +1,20 @@
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 1000,
+  "if": {
+    "minimum": 100
+  },
+  "then": {
+    "multipleOf": 100
+  },
+  "else": {
+    "if": {
+      "minimum": 10
+    },
+    "then": {
+      "multipleOf": 10
+    }
+  }
+
+}
