@@ -3,7 +3,7 @@ import * as express from "express";
 import "../libs/sort.js";
 
 
-
+//@ts-ignore
 var app = express();
 app.use(express.static('tabCommunication'));
 app.get("/", function (req, res) {

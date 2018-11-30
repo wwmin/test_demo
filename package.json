@@ -14,8 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "@types/vue": "^2.0.0",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
+    "koa": "^2.6.2",
+    "koa-useragent": "^1.2.0",
     "nodemon": "^1.17.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/koa": "^2.0.47",
+    "@types/koa-useragent": "^1.2.0"
+  }
 }

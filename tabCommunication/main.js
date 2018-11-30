@@ -7,7 +7,7 @@ function getDom(id) {
 let checkButton = getDom("checkId");
 let setButton = getDom("setId");
 checkButton.addEventListener("click", e => {
-    let value = document.getElementById("checkInputId").value;
+    let value = (document.getElementById("checkInputId")).value;
     console.log(value);
     let storageValue = localStorage.getItem("a");
     getDom("checkInputId").value = storageValue;
@@ -21,7 +21,7 @@ let data = "";
 let onconnect = function (e) {
     let port = e.ports[0];
     port.onmessage = function (e) {
-        if (e.data = 'get') {
+        if ((e.data = "get")) {
             port.postMssage(data);
         }
         else {
@@ -69,7 +69,7 @@ let addEvent = function (ele, type, fn) {
     }
     else if (window.attachEvent) {
         addEvent = function (ele, type, fn) {
-            ele.attachEvent('on' + type, function () {
+            ele.attachEvent("on" + type, function () {
                 fn.call(ele);
             });
         };
@@ -78,7 +78,7 @@ let addEvent = function (ele, type, fn) {
 };
 let only = function (obj, keys) {
     obj = obj || {};
-    if ('string' === typeof keys)
+    if ("string" === typeof keys)
         keys = keys.split(/ +/);
     return keys.reduce(function (ret, key) {
         if (null == obj[key])
@@ -88,8 +88,8 @@ let only = function (obj, keys) {
     }, {});
 };
 let o = {
-    env: 'development',
+    env: "development",
     proxy: false,
     subdomainOffset: 2
 };
-var aaa = only(o, ['env', 'proxy', 'wwmin']);
+var aaa = only(o, ["env", "proxy", "wwmin"]);
